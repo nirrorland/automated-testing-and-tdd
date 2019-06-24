@@ -6,8 +6,6 @@ import org.junit.Test;
 
 import java.util.UUID;
 
-import static org.junit.Assert.*;
-
 public class SavingAccountTest {
 
     private final UUID ID = UUID.randomUUID();
@@ -22,7 +20,6 @@ public class SavingAccountTest {
     public void shouldBeFillingAllArgumentsWhenObjectCreated() {
 
         SavingAccount sa = new SavingAccount(accID, CLIENT, AMOUNT);
-
 
         Assert.assertEquals(accID, sa.getId());
         Assert.assertSame(CLIENT, sa.getClient());

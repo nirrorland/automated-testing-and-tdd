@@ -2,6 +2,7 @@ package com.acme.banking.dbo.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Client {
@@ -23,5 +24,17 @@ public class Client {
 
     public String getName() {
         return name;
+    }
+
+    public void addAccount(SavingAccount savingAccount) {
+        Objects.requireNonNull(savingAccount);
+        if (savingAccount.getClientId() != id) throw new IllegalStateException();
+
+        accountIds.add(savingAccount.getId());
+
+    }
+
+    public void removeAcc(UUID removeAccId) {
+        accountIds.remove(removeAccId);
     }
 }

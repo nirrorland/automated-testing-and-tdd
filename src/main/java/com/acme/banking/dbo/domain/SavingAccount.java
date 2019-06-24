@@ -12,11 +12,16 @@ public class SavingAccount implements Account {
         if (client == null ) throw new IllegalArgumentException("Client should not be null");
         if (amount < 0  ) throw new IllegalArgumentException("Amount  should  be above zero");
 
-
         this.id = id;
         this.client = client;
         this.amount = amount;
+
+        client.addAccount(this);
     }
+//
+//    public void setClient(Client client) {
+//        this.client = client;
+//    }
 
     public Client getClient() {
         return client;
