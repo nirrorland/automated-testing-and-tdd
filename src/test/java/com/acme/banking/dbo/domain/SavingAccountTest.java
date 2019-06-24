@@ -23,26 +23,26 @@ public class SavingAccountTest {
 
         SavingAccount sa = new SavingAccount(accID, CLIENT, AMOUNT);
 
-//        Assert.assertNotNull();
+
         Assert.assertEquals(accID, sa.getId());
         Assert.assertSame(CLIENT, sa.getClient());
         Assert.assertEquals(AMOUNT, sa.getAmount(), 0.00001);
     }
 
-    @Test(expected =  IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void shouldThrowIllegalArgExceptionWhenIdIsNull() {
         new SavingAccount(null, CLIENT, AMOUNT);
 
     }
 
-    @Test(expected =  IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void shouldThrowIllegalArgExceptionWhenClientIsNull() {
 
         new SavingAccount(accID, null, AMOUNT);
 
     }
 
-    @Test(expected =  IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void shouldThrowIllegalArgExceptionWhenAmountBelowZero() {
 
         new SavingAccount(accID, CLIENT, -0.01);
@@ -60,24 +60,21 @@ public class SavingAccountTest {
     }
 
     @Test
-    public void shouldGetAccountIDwhenAccessingWithGetter()
-    {
+    public void shouldGetAccountIDwhenAccessingWithGetter() {
         SavingAccount sa = new SavingAccount(accID, CLIENT, AMOUNT);
 
         Assert.assertSame(accID, sa.getId());
     }
 
     @Test
-    public void shouldGetClientwhenAccessingWithGetter()
-    {
+    public void shouldGetClientwhenAccessingWithGetter() {
         SavingAccount sa = new SavingAccount(accID, CLIENT, AMOUNT);
 
         Assert.assertSame(CLIENT, sa.getClient());
     }
 
     @Test
-    public void shouldGetAmmountwhenAccessingWithGetter()
-    {
+    public void shouldGetAmmountwhenAccessingWithGetter() {
         SavingAccount sa = new SavingAccount(accID, CLIENT, AMOUNT);
 
         Assert.assertSame(AMOUNT, sa.getAmount());
