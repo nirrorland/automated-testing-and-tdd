@@ -1,53 +1,82 @@
 package com.acme.banking.dbo.domain;
 
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.util.UUID;
 
-import static org.junit.Assert.*;
 
 public class ClientTest {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     private final UUID ID = UUID.randomUUID();
     private final String NAME = "testClient";
 
     @Test
     public void shouldBeFillingAllArgumentsWhenObjectCreated() {
-
         Client cl = new Client(ID, NAME);
 
-//        Assert.assertNotNull();
         Assert.assertEquals(ID, cl.getId());
         Assert.assertEquals(NAME, cl.getName());
     }
 
-    @Test(expected =  IllegalArgumentException.class)
+    @Test
     public void shouldThrowIllegalArgExceptionWhenIdIsNull() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Id should not be null");
+
         new Client(null, NAME);
 
     }
 
-    @Test(expected =  IllegalArgumentException.class)
+    @Test
     public void shouldThrowIllegalArgExceptionWhenNameIsNull() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Name should not be null");
 
         new Client(ID, null);
-
     }
 
-    @Test(expected =  IllegalArgumentException.class)
+    @Test
+    public void shouldThrowIllegalArgExceptionWhenNameIsEmpty() {
+        new Client(ID, "");
+    }
+
+    @Test
     public void shouldThrowIllegalArgExceptionWhenAllArgsIsNull() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Id should not be null");
 
         new Client(null, null);
-
     }
 
     @Test
     public void shouldBeNotNullWhenObjectCreated() {
+        Client cl = new Client(ID, NAME);
+        Assert.assertNotNull(cl);
+    }
 
+    @Test
+    public void shouldThrowNullPointerExceptionWhenAccountIsNull(){
         Client cl = new Client(ID, NAME);
 
+        thrown.expect(NullPointerException.class);
+        cl.addAccount(null);
+    }
 
-        Assert.assertNotNull(cl);
+    @Test
+    public void shouldThrowIllegalStateExceptionWhenClientIsAnother(){
+        Client cl = new Client(ID, NAME);
+        Client cl2 = new Client(UUID.randomUUID(), NAME);
+
+        UUID anyAccId = UUID.randomUUID();
+        SavingAccount sa = new SavingAccount(anyAccId, cl2, 0);
+
+        thrown.expect(IllegalStateException.class);
+        cl.addAccount(sa);
     }
 }

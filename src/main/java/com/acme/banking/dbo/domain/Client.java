@@ -8,11 +8,18 @@ import java.util.UUID;
 public class Client {
     private UUID id;
     private String name;
+
+    public Collection<UUID> getAccountIds() {
+        return accountIds;
+    }
+
     private Collection<UUID> accountIds = new ArrayList<>(); //TODO
 
     public Client(UUID id, String name) {
         if (id == null ) throw new IllegalArgumentException("Id should not be null");
-        if (name == null) throw new IllegalArgumentException("Id should not be null or empty");
+        if (name == null) throw new IllegalArgumentException("Name should not be null");
+        if (name.isEmpty()) throw new IllegalArgumentException("Name should not be empty");
+
 
         this.id = id;
         this.name = name;
@@ -33,8 +40,13 @@ public class Client {
         accountIds.add(savingAccount.getId());
 
     }
-
-    public void removeAcc(UUID removeAccId) {
-        accountIds.remove(removeAccId);
-    }
 }
+
+
+//тестовое покрытие, воркфлоу junit, про аннотации и rules, PIT
+
+//Все равно не понятно, что покрывать и какими типами тестов.
+// Нужно больше практических вещей для junit'a
+
+
+//Померить покрытие?
