@@ -18,10 +18,6 @@ public class SavingAccount implements Account {
 
         client.addAccount(this);
     }
-//
-//    public void setClient(Client client) {
-//        this.client = client;
-//    }
 
     public Client getClient() {
         return client;
