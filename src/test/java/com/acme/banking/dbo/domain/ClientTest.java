@@ -69,14 +69,14 @@ public class ClientTest {
     }
 
     @Test
-    public void shouldThrowIllegalStateExceptionWhenClientIsAnother(){
-        Client cl = new Client(ID, NAME);
-        Client cl2 = new Client(UUID.randomUUID(), NAME);
+    public void shouldThrowIllegalStateExceptionWhenAccountLinkToDifferentClient(){
+        Client anyClient = new Client(ID, NAME);
+        Client existingCount = new Client(UUID.randomUUID(), NAME);
 
-        UUID anyAccId = UUID.randomUUID();
-        SavingAccount sa = new SavingAccount(anyAccId, cl2, 0);
+        UUID anyAccountId = UUID.randomUUID();
+        SavingAccount sa = new SavingAccount(anyAccountId, existingCount, 0);
 
         thrown.expect(IllegalStateException.class);
-        cl.addAccount(sa);
+        anyClient.addAccount(sa);
     }
 }

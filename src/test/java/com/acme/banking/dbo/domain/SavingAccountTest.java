@@ -33,6 +33,13 @@ public class SavingAccountTest {
     }
 
     @Test
+    public void shouldAccountBeInClientScope() {
+
+        SavingAccount sa = new SavingAccount(accID, CLIENT, AMOUNT);
+        Assert.assertTrue(CLIENT.getAccountIds().contains(sa.getId()));
+    }
+
+    @Test
     public void shouldThrowIllegalArgExceptionWhenIdIsNull() {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("Id should not be null");
