@@ -5,6 +5,7 @@ import com.acme.banking.dbo.domain.Account;
 import com.acme.banking.dbo.repo.AccountRepository;
 import com.acme.banking.dbo.repo.ClientRepository;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -18,6 +19,22 @@ public class ProcessingTest {
     private static final double ANY_AMOUNT = 1.0;
     private static final UUID ANY_UUID = UUID.randomUUID();
     private static final String ANY_NAME = "AnyClient";
+
+    private TxLog mockTxLog;
+    private ClientRepository mockClients;
+    private AccountRepository mockAccounts;
+
+    Processing sut;
+
+
+    @Before
+    public void setUp() {
+        mockTxLog = mock(TxLog.class);
+        mockClients = mock(ClientRepository.class);
+        mockAccounts = mock(AccountRepository.class);
+
+        sut = new Processing(mockTxLog, mockClients, mockAccounts);
+    }
 
     @Test
     public void shouldLogTxWithTxLogWhenCacheOperation() {
@@ -103,6 +120,21 @@ public class ProcessingTest {
 
         verify(mockAccounts, times(1))
                 .transferAmount(any(UUID.class), any(UUID.class), anyDouble());
+
+    }
+
+    @Test
+    public void shouldReturnUUIDWhenClientCreated2() {
+        TxLog mockTxLog = mock(TxLog.class);
+        ClientRepository mockClients = mock(ClientRepository.class);
+        AccountRepository mockAccounts = mock(AccountRepository.class);
+        UUID returnedUUID = UUID.randomUUID();
+
+        when(mockClients.create(anyString())).thenReturn(returnedUUID);
+
+        Processing sut = new Processing(mockTxLog, mockClients, mockAccounts);
+
+        Assert.assertEquals(returnedUUID,  sut.createClient(ANY_NAME));
 
     }
 }

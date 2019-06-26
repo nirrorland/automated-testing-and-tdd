@@ -2,6 +2,7 @@ package com.acme.banking.dbo.service;
 
 import com.acme.banking.dbo.domain.Account;
 import com.acme.banking.dbo.domain.Branch;
+import com.acme.banking.dbo.domain.BranchInterface;
 import com.acme.banking.dbo.repo.AccountRepository;
 
 import java.util.UUID;
@@ -53,5 +54,11 @@ public class Reporting {
         Account account = accounts.findById(accountId);
 
         return "# *" + account.getId() + "* " + account.getClientId();
+    }
+
+    public String getBranchReport(BranchInterface branch) {
+        //TODO impl
+
+      return null;
     }
 }
